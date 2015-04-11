@@ -44,7 +44,7 @@ var Select = React.createClass({
 		*
 		*/
 		onOptionLabelClick: React.PropTypes.func,
-        autoFocus: React.PropTypes.bool // true if we want to autofocus the element on creation
+		autoFocus: React.PropTypes.bool // true if we want to autofocus the element on creation
 	},
 
 	getDefaultProps: function() {
@@ -631,14 +631,15 @@ var Select = React.createClass({
 
 		var input;
             
-        if (this.props.autoFocus && !this._autofocus) {
-            this._autofocus = true;
-            this._openAfterFocus = true;
-        }
+		if (this.props.autoFocus && !this._autofocus) {
+			this._autofocus = true;
+			this._openAfterFocus = true;
+		}
+
 		var inputProps = _.extend({
 			ref: 'input',
 			className: 'Select-input',
-            autoFocus: this.props.autoFocus,
+			autoFocus: this.props.autoFocus,
 			tabIndex: this.props.tabIndex || 0,
 			onFocus: this.handleInputFocus,
 			onBlur: this.handleInputBlur
