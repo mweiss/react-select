@@ -650,6 +650,11 @@ var Select = React.createClass({
 		}
 
 		var input;
+
+		if (this.props.autoFocus && this._autofocus) {
+			this._autofocus = true;
+			this._openAfterFocus = true;
+		}
 		var inputProps = _.extend({
 			ref: 'input',
 			className: 'Select-input',
