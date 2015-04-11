@@ -53,7 +53,7 @@ var StatesField = React.createClass({
 		return (
 			<div>
 				<label>{this.props.label}</label>
-				<Select options={ops} value={this.state.selectValue} onChange={this.updateValue} searchable={this.props.searchable} />
+                        <Select autoFocus={true} options={ops} value={this.state.selectValue} onChange={this.updateValue} searchable={this.props.searchable} />
 				<div className="switcher">
 					Country:
 					<CountrySelect value="AU" selected={this.state.country} onSelect={this.switchCountry}>Australia</CountrySelect>

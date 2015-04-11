@@ -43,7 +43,8 @@ var Select = React.createClass({
 		* onOptionLabelClick handler: function (value, event) {}
 		*
 		*/
-		onOptionLabelClick: React.PropTypes.func
+		onOptionLabelClick: React.PropTypes.func,
+        autoFocus: React.PropTypes.bool // true if we want to autofocus the element on creation
 	},
 
 	getDefaultProps: function() {
@@ -269,7 +270,7 @@ var Select = React.createClass({
 			this.props.onChange(newState.value, newState.values);
 		}
 	},
-
+    
 	handleMouseDown: function(event) {
 		// if the event was triggered by a mousedown and not the primary
 		// button, or if the component is disabled, ignore it.
@@ -632,6 +633,7 @@ var Select = React.createClass({
 		var inputProps = _.extend({
 			ref: 'input',
 			className: 'Select-input',
+            autoFocus: this.props.autoFocus,
 			tabIndex: this.props.tabIndex || 0,
 			onFocus: this.handleInputFocus,
 			onBlur: this.handleInputBlur

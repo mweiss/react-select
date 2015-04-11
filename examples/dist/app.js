@@ -69,7 +69,7 @@ var StatesField = React.createClass({
 				null,
 				this.props.label
 			),
-			React.createElement(Select, { options: ops, value: this.state.selectValue, onChange: this.updateValue, searchable: this.props.searchable }),
+			React.createElement(Select, { autoFocus: true, options: ops, value: this.state.selectValue, onChange: this.updateValue, searchable: this.props.searchable }),
 			React.createElement(
 				'div',
 				{ className: 'switcher' },

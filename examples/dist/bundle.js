@@ -102,13 +102,14 @@ var Select = React.createClass({
   * onOptionLabelClick handler: function (value, event) {}
   *
   */
-		onOptionLabelClick: React.PropTypes.func
+		onOptionLabelClick: React.PropTypes.func,
+		autoFocus: React.PropTypes.bool // true if we want to autofocus the element on creation
 	},
 
 	getDefaultProps: function getDefaultProps() {
 		return {
 			value: undefined,
-			options: [],
+			options: undefined,
 			disabled: false,
 			delimiter: ',',
 			asyncOptions: undefined,
@@ -352,6 +353,7 @@ var Select = React.createClass({
 
 	handleInputFocus: function handleInputFocus(event) {
 		var newIsOpen = this.state.isOpen || this._openAfterFocus;
+		console.log('handle input focus');
 		this.setState({
 			isFocused: true,
 			isOpen: newIsOpen
@@ -459,10 +461,14 @@ var Select = React.createClass({
 	},
 
 	autoloadAsyncOptions: function autoloadAsyncOptions() {
-		this.loadAsyncOptions('', {}, function () {});
+		var self = this;
+		this.loadAsyncOptions('', {}, function () {
+			// update with fetched
+			self.setValue(self.props.value);
+		});
 	},
 
-	loadAsyncOptions: function loadAsyncOptions(input, state) {
+	loadAsyncOptions: function loadAsyncOptions(input, state, callback) {
 		var thisRequestId = this._currentRequestId = requestId++;
 
 		for (var i = 0; i <= input.length; i++) {
@@ -476,6 +482,7 @@ var Select = React.createClass({
 					filteredOptions: filteredOptions,
 					focusedOption: _.contains(filteredOptions, this.state.focusedOption) ? this.state.focusedOption : filteredOptions[0]
 				}, state));
+				if (callback) callback({});
 				return;
 			}
 		}
@@ -496,6 +503,8 @@ var Select = React.createClass({
 				filteredOptions: filteredOptions,
 				focusedOption: _.contains(filteredOptions, this.state.focusedOption) ? this.state.focusedOption : filteredOptions[0]
 			}, state));
+
+			if (callback) callback({});
 		}).bind(this));
 	},
 
@@ -698,6 +707,7 @@ var Select = React.createClass({
 		var inputProps = _.extend({
 			ref: 'input',
 			className: 'Select-input',
+			autoFocus: this.props.autoFocus,
 			tabIndex: this.props.tabIndex || 0,
 			onFocus: this.handleInputFocus,
 			onBlur: this.handleInputBlur
